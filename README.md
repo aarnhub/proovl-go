@@ -60,7 +60,7 @@ func main() {
 	to := "destination_number1,destination_number2,destination_number3"
 	text := "your_message_text"
 
-	response, err := proovl.BulkSMS(user, token, route, from, text)
+	response, err := proovl.BulkSMS(user, token, route, from, to, text)
 	if err != nil {
 		fmt.Println("Error occurred:", err)
 	} else {
