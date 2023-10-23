@@ -28,7 +28,7 @@ import (
 func main() {
 	user := "your_user"
 	token := "your_token"
-	route := "your_route"
+	route := "1"
 	from := "your_from"
 	to := "destination_number"
 	text := "your_message_text"
@@ -55,7 +55,7 @@ import (
 func main() {
 	user := "your_user"
 	token := "your_token"
-	route := "your_route"
+	route := "1"
 	from := "your_from"
 	to := "destination_number1,destination_number2,destination_number3"
 	text := "your_message_text"
