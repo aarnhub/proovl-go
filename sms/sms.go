@@ -70,7 +70,7 @@ func BulkSMS(user, token, route, from, to, text string) (string, error) {
 		result := string(body)
 		response := parseResponse(result)
 		if response[0] == "Error" {
-			return fmt.Sprintf("Error message: %s", response[1]), nil
+			fmt.Printf("Error message: %s\n", response[1])
 		} else {
 			fmt.Printf("Message ID: %s; Status: %s\n", response[1], response[0])
 		}
@@ -78,6 +78,3 @@ func BulkSMS(user, token, route, from, to, text string) (string, error) {
 	return "Bulk SMS sent successfully", nil
 }
 
-func parseResponse(response string) []string {
-	return strings.Split(response, ";")
-}
