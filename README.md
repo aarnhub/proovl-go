@@ -69,6 +69,6 @@ func main() {
 }
 ```
 
-Replace your_user, your_token, your_route, your_from, destination_number, and your_message_text with your Proovl API credentials and desired message details.
+Replace your_user, your_token, your_from, destination_number, and your_message_text with your Proovl API credentials and desired message details.
 
-Make sure to import the package by adding import "github.com/aarnhub/proovl-go" to your code.
+Make sure to import the package by adding import "github.com/aarnhub/proovl-go/sms" to your code.
