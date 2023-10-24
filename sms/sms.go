@@ -76,6 +76,9 @@ func BulkSMS(user, token, route, from, to, text string) ([]string, error) {
 			responses = append(responses, fmt.Sprintf("Message ID: %s; Status: %s", response[1], response[0]))
 		}
 	}
+		func parseResponse(response string) []string {
+		return strings.Split(response, ";")
+	}
 	return responses, nil
 }
 
