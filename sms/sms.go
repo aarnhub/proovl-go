@@ -72,13 +72,12 @@ func BulkSMS(user, token, route, from, to, text string) ([]string, error) {
 			return nil, fmt.Errorf("Error reading response body: %v", err)
 		}
 
-		result := string(body)
-		response := parseResponse(result)
-		if response[0] == "Error" {
-			responses = append(responses, fmt.Sprintf("Error message: %s", response[1]))
-		} else {
-			responses = append(responses, fmt.Sprintf("Message ID: %s; Status: %s", response[1], response[0]))
-		}
+		txt := string(body)
+		z := strings.Split(txt, ";")
+		time.Sleep(500 * time.Millisecond)
+		responses = append(responses, fmt.Sprintf("Progress: %s; %s", number, z[1]))
 	}
+
 	return responses, nil
 }
+
