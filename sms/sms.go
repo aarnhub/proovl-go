@@ -41,15 +41,16 @@ func SendSMS(user, token, route, from, to, text string) (string, error) {
 	}
 }
 
-func BulkSMS(user, token, route, from, to, text string) (string, error) {
+func BulkSMS(user, token, route, from, to, text string) ([]string, error) {
 	url := "https://www.proovl.com/api/send.php"
+	var responses []string
 
 	toNumbers := strings.Split(to, ",")
 	for _, number := range toNumbers {
 		postData := []byte(fmt.Sprintf("user=%s&token=%s&route=%s&from=%s&to=%s&text=%s", user, token, route, from, number, text))
 		req, err := http.NewRequest("POST", url, bytes.NewBuffer(postData))
 		if err != nil {
-			return "", fmt.Errorf("Error creating request: %v", err)
+			return nil, fmt.Errorf("Error creating request: %v", err)
 		}
 
 		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
@@ -57,24 +58,25 @@ func BulkSMS(user, token, route, from, to, text string) (string, error) {
 		client := &http.Client{}
 		resp, err := client.Do(req)
 		if err != nil {
-			return "", fmt.Errorf("Error sending request: %v", err)
+			return nil, fmt.Errorf("Error sending request: %v", err)
 		}
 
 		defer resp.Body.Close()
 
 		body, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
-			return "", fmt.Errorf("Error reading response body: %v", err)
+			return nil, fmt.Errorf("Error reading response body: %v", err)
 		}
 
 		result := string(body)
 		response := parseResponse(result)
 		if response[0] == "Error" {
-			fmt.Printf("Error message: %s\n", response[1])
+			responses = append(responses, fmt.Sprintf("Error message: %s", response[1]))
 		} else {
-			fmt.Printf("Message ID: %s; Status: %s\n", response[1], response[0])
+			responses = append(responses, fmt.Sprintf("Message ID: %s; Status: %s", response[1], response[0]))
 		}
 	}
-	return "Bulk SMS sent successfully", nil
+	return responses, nil
 }
+
 
