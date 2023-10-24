@@ -8,10 +8,6 @@ import (
 	"strings"
 )
 
-func parseResponse(response string) []string {
-	return strings.Split(response, ";")
-}
-//
 func SendSMS(user, token, route, from, to, text string) (string, error) {
 	url := "https://www.proovl.com/api/send.php"
 
